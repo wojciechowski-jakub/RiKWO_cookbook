@@ -4,33 +4,42 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: 'cookbook',
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'search-tab',
+        loadChildren: () =>
+          import('../search-tab/search-tab.module').then(
+            (m) => m.SearchTabPageModule
+          ),
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'add-recipe-tab',
+        loadChildren: () =>
+          import('../add-recipe-tab/add-recipe-tab.module').then(
+            (m) => m.AddRecipeTabPageModule
+          ),
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'my-recipes-tab',
+        loadChildren: () =>
+          import('../my-recipes-tab/my-recipes-tab.module').then(
+            (m) => m.MyRecipesTabPageModule
+          ),
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full'
-      }
-    ]
+        redirectTo: '/cookbook/search-tab',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full'
-  }
+    redirectTo: '/cookbook/search-tab',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
