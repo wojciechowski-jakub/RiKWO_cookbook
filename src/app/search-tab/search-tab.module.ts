@@ -7,14 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { SearchTabPageRoutingModule } from './search-tab-routing.module';
 
 import { SearchTabPage } from './search-tab.page';
+import { CategoryCardComponent } from './category-card/category-card.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    SearchTabPageRoutingModule
-  ],
-  declarations: [SearchTabPage]
+  imports: [CommonModule, FormsModule, IonicModule, SearchTabPageRoutingModule],
+  declarations: [SearchTabPage, CategoryCardComponent],
 })
 export class SearchTabPageModule {}
