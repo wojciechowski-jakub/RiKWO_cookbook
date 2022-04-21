@@ -1,14 +1,25 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar *ngIf="!searching">
     <ion-title> Search </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+      #searchbar
+      (ionInput)="search(searchbar.value)"
+    ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="categories">
+  <div class="categories" *ngIf="!searching">
     <app-category-card
-      *ngFor="let category of categories | async"
+      *ngFor="let category of categories$ | async"
       [category]="category"
     ></app-category-card>
+  </div>
+
+  <div class="recipes" [hidden]="!searching">
+    RECIPES HERE...
+    <div *ngFor="let recipe of recipes$ | async">{{recipe.title}}</div>
   </div>
 </ion-content>
