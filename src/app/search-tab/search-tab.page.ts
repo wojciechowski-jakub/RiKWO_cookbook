@@ -40,4 +40,8 @@ export class SearchTabPage implements OnInit {
   search(phrase: string): void {
     this.searchPhrase.next(phrase);
   }
+
+  cancelSearch(): void {
+    this.searching = false;
+  }
 }

@@ -3,7 +3,9 @@ import { Observable, of } from 'rxjs';
 import { RECIPES } from '../data/mock.recipes';
 import { Recipe } from '../data/recipe.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class RecipeService {
   constructor() {}
 

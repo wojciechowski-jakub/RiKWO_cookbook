@@ -1,3 +1,21 @@
+.searchbar {
+  display: flex;
+  align-items: center;
+
+  &__icon-back {
+    display: none;
+    padding: 0 0.8rem;
+
+    &--visible {
+      display: inline-block;
+    }
+  }
+}
+
+.searchbar_bar {
+  width: 60%;
+}
+
 .categories {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

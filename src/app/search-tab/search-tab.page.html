@@ -3,10 +3,18 @@
     <ion-title> Search </ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar
-      #searchbar
-      (ionInput)="search(searchbar.value)"
-    ></ion-searchbar>
+    <div class="searchbar">
+      <ion-icon
+        name="arrow-back-outline"
+        class="searchbar__icon-back"
+        [class.searchbar__icon-back--visible]="searching"
+        (click)="cancelSearch(); searchbar.value = ''"
+      ></ion-icon>
+      <ion-searchbar
+        #searchbar
+        (ionInput)="search(searchbar.value)"
+      ></ion-searchbar>
+    </div>
   </ion-toolbar>
 </ion-header>
 

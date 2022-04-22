@@ -8,11 +8,10 @@ import { SearchTabPageRoutingModule } from './search-tab-routing.module';
 
 import { SearchTabPage } from './search-tab.page';
 import { CategoryCardComponent } from './category-card/category-card.component';
-import { RecipeService } from './recipe.service';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, SearchTabPageRoutingModule],
   declarations: [SearchTabPage, CategoryCardComponent],
-  providers: [RecipeService],
+  providers: [],
 })
 export class SearchTabPageModule {}
