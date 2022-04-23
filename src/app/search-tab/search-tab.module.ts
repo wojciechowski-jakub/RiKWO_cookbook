@@ -8,10 +8,12 @@ import { SearchTabPageRoutingModule } from './search-tab-routing.module';
 
 import { SearchTabPage } from './search-tab.page';
 import { CategoryCardComponent } from './category-card/category-card.component';
+import { AppModule } from '../app.module';
+import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, SearchTabPageRoutingModule],
-  declarations: [SearchTabPage, CategoryCardComponent],
+  declarations: [SearchTabPage, CategoryCardComponent, RecipeCardComponent],
   providers: [],
 })
 export class SearchTabPageModule {}

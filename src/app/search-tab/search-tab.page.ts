@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonSearchbar } from '@ionic/angular';
 import { Observable, Subject } from 'rxjs';
 import {
   debounceTime,
@@ -41,7 +42,8 @@ export class SearchTabPage implements OnInit {
     this.searchPhrase.next(phrase);
   }
 
-  cancelSearch(): void {
+  cancelSearch(searchbar: IonSearchbar): void {
     this.searching = false;
+    searchbar.value = '';
   }
 }

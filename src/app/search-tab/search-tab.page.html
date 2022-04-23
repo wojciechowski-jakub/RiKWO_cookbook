@@ -8,7 +8,7 @@
         name="arrow-back-outline"
         class="searchbar__icon-back"
         [class.searchbar__icon-back--visible]="searching"
-        (click)="cancelSearch(); searchbar.value = ''"
+        (click)="cancelSearch(searchbar)"
       ></ion-icon>
       <ion-searchbar
         #searchbar
@@ -27,7 +27,9 @@
   </div>
 
   <div class="recipes" [hidden]="!searching">
-    RECIPES HERE...
-    <div *ngFor="let recipe of recipes$ | async">{{recipe.title}}</div>
+    <app-recipe-card
+      *ngFor="let recipe of recipes$ | async"
+      [recipe]="recipe"
+    ></app-recipe-card>
   </div>
 </ion-content>

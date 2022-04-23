@@ -12,11 +12,15 @@
   }
 }
 
-.searchbar_bar {
-  width: 60%;
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  padding: 1.2rem;
 }
 
-.categories {
+.recipes {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
