@@ -7,10 +7,10 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { CategoryService } from '../category.service';
 import { Category } from '../data/category.model';
 import { Recipe } from '../data/recipe.model';
-import { RecipeService } from './recipe.service';
+import { CategoryService } from '../services/category.service';
+import { RecipeService } from '../services/recipe.service';
 
 @Component({
   selector: 'app-search-tab',
@@ -22,6 +22,7 @@ export class SearchTabPage implements OnInit {
   recipes$: Observable<Recipe[]>;
   searching = false;
   private searchPhrase = new Subject<string>();
+  selectedCategory?: Category;
 
   constructor(
     private categoryService: CategoryService,
@@ -34,7 +35,9 @@ export class SearchTabPage implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       tap(() => (this.searching = true)),
-      switchMap((phrase) => this.recipeService.searchRecipe(phrase))
+      switchMap((phrase) =>
+        this.recipeService.getRecipes(phrase, this.selectedCategory)
+      )
     );
   }
 
@@ -45,5 +48,10 @@ export class SearchTabPage implements OnInit {
   cancelSearch(searchbar: IonSearchbar): void {
     this.searching = false;
     searchbar.value = '';
+  }
+
+  selectCategory(category: Category) {
+    this.selectedCategory = category;
+    this.search('');
   }
 }

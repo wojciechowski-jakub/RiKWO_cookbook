@@ -23,13 +23,23 @@
     <app-category-card
       *ngFor="let category of categories$ | async"
       [category]="category"
+      (click)="selectCategory(category)"
     ></app-category-card>
   </div>
 
-  <div class="recipes" [hidden]="!searching">
-    <app-recipe-card
-      *ngFor="let recipe of recipes$ | async"
-      [recipe]="recipe"
-    ></app-recipe-card>
-  </div>
+  <ng-container *ngFor="let recipes of [recipes$ | async]">
+    <div class="recipes" *ngIf="searching">
+      <app-recipe-card
+        *ngFor="let recipe of recipes"
+        [recipe]="recipe"
+      ></app-recipe-card>
+
+      <div *ngIf="recipes.length === 0" class="recipes__empty-message">
+        <p>
+          Your search for "{{searchbar.value}}" didn't return any results. Try
+          again!
+        </p>
+      </div>
+    </div>
+  </ng-container>
 </ion-content>

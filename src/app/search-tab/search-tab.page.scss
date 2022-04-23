@@ -2,6 +2,10 @@
   display: flex;
   align-items: center;
 
+  ion-searchbar {
+    padding: 0;
+  }
+
   &__icon-back {
     display: none;
     padding: 0 0.8rem;
@@ -26,4 +30,8 @@
   gap: 1rem;
 
   padding: 1.2rem;
+
+  &__empty-message {
+    grid-column: 1 / -1;
+  }
 }
