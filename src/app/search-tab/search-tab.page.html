@@ -6,6 +6,7 @@
     <div class="searchbar">
       <ion-icon
         name="arrow-back-outline"
+        size="large"
         class="searchbar__icon-back"
         [class.searchbar__icon-back--visible]="searching"
         (click)="cancelSearch(searchbar)"
@@ -32,9 +33,14 @@
       <app-recipe-card
         *ngFor="let recipe of recipes"
         [recipe]="recipe"
+        (bookmark)="addToFavorites(recipe)"
+        (recipeClick)="showRecipeDetails(recipe)"
       ></app-recipe-card>
 
-      <div *ngIf="recipes.length === 0" class="recipes__empty-message">
+      <div
+        *ngIf="recipes && recipes.length === 0"
+        class="recipes__empty-message"
+      >
         <p>
           Your search for "{{searchbar.value}}" didn't return any results. Try
           again!

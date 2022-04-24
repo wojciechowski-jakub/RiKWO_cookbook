@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  gap: 6rem;
+
+  background-color: var(--ion-color-light);
+  box-shadow: 0 0.6rem 1.2rem hsl(0, 0, 0, 0.15);
+  padding: 2rem;
+}
+
+.step__number {
+  color: var(--ion-color-primary);
+  opacity: 0.5;
+  font-weight: 700;
+  font-size: 1.2rem;
+
+  align-self: flex-start;
+}
+
+.step__description {
+  flex: 1;
+}

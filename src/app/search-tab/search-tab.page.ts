@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonSearchbar } from '@ionic/angular';
 import { Observable, Subject } from 'rxjs';
 import {
@@ -26,7 +27,8 @@ export class SearchTabPage implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -53,5 +55,13 @@ export class SearchTabPage implements OnInit {
   selectCategory(category: Category) {
     this.selectedCategory = category;
     this.search('');
+  }
+
+  addToFavorites(recipe: Recipe) {
+    console.log('FAVROTIE');
+  }
+
+  showRecipeDetails(recipe: Recipe) {
+    this.router.navigate(['cookbook/recipe-details', recipe.id]);
   }
 }

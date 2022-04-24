@@ -1,9 +1,11 @@
-<div class="recipe-picture">
+<div class="recipe-picture" (click)="onRecipeClick(recipe)">
   <img [alt]="recipe.title" [src]="recipe.photo" />
+
   <ion-icon
     name="heart-outline"
     size="large"
     class="recipe-picture__heart-icon"
+    (click)="addToFavorites(recipe); $event.stopPropagation()"
   ></ion-icon>
 </div>
-<h2 class="recipe-title">{{ recipe.title }}</h2>
+<h2 class="recipe-title" (click)="onRecipeClick(recipe)">{{ recipe.title }}</h2>
