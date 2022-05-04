@@ -5,9 +5,19 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="recipes">
+    <app-recipe-card
+      *ngFor="let recipe of recipes"
+      [recipe]="recipe"
+      (bookmark)="bookmark(recipe)"
+      (recipeClick)="showRecipeDetails(recipe)"
+    ></app-recipe-card>
+
+    <div *ngIf="recipes && recipes.length === 0" class="recipes__empty-message">
+      <p>
+        No recipes yet. Start with adding your own recipe or bookmark existing
+        one on the search page.
+      </p>
+    </div>
+  </div>
 </ion-content>

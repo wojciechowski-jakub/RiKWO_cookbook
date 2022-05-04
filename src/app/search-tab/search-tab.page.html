@@ -33,7 +33,7 @@
       <app-recipe-card
         *ngFor="let recipe of recipes"
         [recipe]="recipe"
-        (bookmark)="addToFavorites(recipe)"
+        (bookmark)="bookmark(recipe)"
         (recipeClick)="showRecipeDetails(recipe)"
       ></app-recipe-card>
 

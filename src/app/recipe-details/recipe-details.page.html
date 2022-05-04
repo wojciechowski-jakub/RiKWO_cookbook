@@ -1,44 +1,49 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar class="toolbar">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-button>
-        <ion-icon name="heart-outline" size="large"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ng-container *ngIf="(recipe$ | async) as recipe">
+  <ion-header class="ion-no-border">
+    <ion-toolbar class="toolbar">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-buttons slot="primary">
+        <ion-button (click)="bookmark(recipe)">
+          <ion-icon
+            [name]="isBookmarked(recipe) ? 'heart' : 'heart-outline'"
+            size="large"
+          ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content>
-  <div *ngIf="recipe$ | async as recipe" class="recipe">
-    <img [src]="recipe.photo" [alt]="recipe.title" class="recipe__img" />
+  <ion-content>
+    <div class="recipe">
+      <img [src]="recipe.photo" [alt]="recipe.title" class="recipe__img" />
 
-    <div class="recipe__data">
-      <h2 class="recipe__title">{{recipe.title}}</h2>
+      <div class="recipe__data">
+        <h2 class="recipe__title">{{recipe.title}}</h2>
 
-      <div class="recipe__ingredients">
-        <h3 class="recipe__headline">Ingredients</h3>
-        <div
-          class="recipe__ingredient"
-          *ngFor="let ingredient of recipe.ingredients"
-        >
-          <app-recipe-ingredient
-            [ingredient]="ingredient"
-          ></app-recipe-ingredient>
-          <div class="recipe__ingredient-separator"></div>
+        <div class="recipe__ingredients">
+          <h3 class="recipe__headline">Ingredients</h3>
+          <div
+            class="recipe__ingredient"
+            *ngFor="let ingredient of recipe.ingredients"
+          >
+            <app-recipe-ingredient
+              [ingredient]="ingredient"
+            ></app-recipe-ingredient>
+            <div class="recipe__ingredient-separator"></div>
+          </div>
+        </div>
+
+        <div class="recipe__preparation-steps">
+          <h3 class="recipe__headline">Preparation</h3>
+          <app-recipe-preparation-step
+            *ngFor="let step of recipe.preparationSteps;let i = index"
+            [step]="step"
+            [stepNumber]="i+1"
+          ></app-recipe-preparation-step>
         </div>
       </div>
-
-      <div class="recipe__preparation-steps">
-        <h3 class="recipe__headline">Preparation</h3>
-        <app-recipe-preparation-step
-          *ngFor="let step of recipe.preparationSteps;let i = index"
-          [step]="step"
-          [stepNumber]="i+1"
-        ></app-recipe-preparation-step>
-      </div>
     </div>
-  </div>
-</ion-content>
+  </ion-content>
+</ng-container>

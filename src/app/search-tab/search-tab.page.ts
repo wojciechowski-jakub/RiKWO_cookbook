@@ -11,6 +11,7 @@ import {
 import { Category } from '../data/category.model';
 import { Recipe } from '../data/recipe.model';
 import { CategoryService } from '../services/category.service';
+import { MyRecipesService } from '../services/my-recipes.service';
 import { RecipeService } from '../services/recipe.service';
 
 @Component({
@@ -28,6 +29,7 @@ export class SearchTabPage implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private recipeService: RecipeService,
+    private myRecipesService: MyRecipesService,
     private router: Router
   ) {}
 
@@ -57,8 +59,8 @@ export class SearchTabPage implements OnInit {
     this.search('');
   }
 
-  addToFavorites(recipe: Recipe) {
-    console.log('FAVROTIE');
+  bookmark(recipe: Recipe) {
+    this.myRecipesService.bookmark(recipe);
   }
 
   showRecipeDetails(recipe: Recipe) {
