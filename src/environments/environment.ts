@@ -7,6 +7,7 @@ export const environment = {
   apiURL: 'https://api.spoonacular.com/',
   // apiKey: '821f8bcd661246cfb7901beaaec17cb9',
   apiKey: '110368c717ad41048aabf18a4d89eb4f',
+  storageIndexPrefix: '997',
 };
 
 /*

@@ -46,11 +46,11 @@ export class RecipeService {
       this.getRecipePreparationSteps(id),
       this.getRecipeIngredients(id),
     ]).pipe(
-      map((response) => {
+      map(([recipeInfo, recipePreparationSteps, recipeIngredients]) => {
         return {
-          ...response[0],
-          preparationSteps: response[1],
-          ingredients: response[2],
+          ...recipeInfo,
+          preparationSteps: recipePreparationSteps,
+          ingredients: recipeIngredients,
         };
       })
     );

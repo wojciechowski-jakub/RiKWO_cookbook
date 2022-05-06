@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Recipe } from '../data/recipe.model';
 import { MyRecipesService } from '../services/my-recipes.service';
 import { RecipeService } from '../services/recipe.service';
@@ -22,7 +22,10 @@ export class RecipeDetailsPage implements OnInit {
 
   ngOnInit() {
     const recipeId = +this.route.snapshot.paramMap.get('id');
-    this.recipe$ = this.recipeService.getRecipeDetails(recipeId);
+    const recipeInMemory = this.myRecipesService.getMyRecipeById(recipeId);
+    console.log(recipeInMemory);
+    if (recipeInMemory) this.recipe$ = of(recipeInMemory);
+    else this.recipe$ = this.recipeService.getRecipeDetails(recipeId);
   }
 
   bookmark(recipe: Recipe) {

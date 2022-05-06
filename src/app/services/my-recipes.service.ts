@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@capacitor/storage';
 import { Recipe } from '../data/recipe.model';
 import { from } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class MyRecipesService {
   }
 
   bookmark(recipe: Recipe) {
+    console.log(recipe);
     if (this.isBookmarked(recipe)) {
       this.recipes.splice(
         this.recipes.findIndex((r) => r.id === recipe.id),
@@ -42,5 +44,15 @@ export class MyRecipesService {
 
   getRecipes(): Recipe[] {
     return this.recipes;
+  }
+
+  getMyRecipeById(id: number): Recipe {
+    return this.recipes
+      .filter((recipe) =>
+        recipe.id.toString().startsWith(environment.storageIndexPrefix)
+      )
+      .find((recipe) => {
+        return recipe.id == id;
+      });
   }
 }
