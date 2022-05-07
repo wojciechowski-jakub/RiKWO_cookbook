@@ -14,7 +14,19 @@
       <ion-searchbar
         #searchbar
         (ionInput)="search(searchbar.value)"
+        placeholder="Search for recipe"
       ></ion-searchbar>
+
+      <div class="options" *ngIf="searching">
+        <ion-icon
+          name="options-outline"
+          (click)="showFilterOptions()"
+        ></ion-icon>
+        <ion-icon
+          name="swap-vertical-outline"
+          (click)="showSortOptions()"
+        ></ion-icon>
+      </div>
     </div>
   </ion-toolbar>
 </ion-header>

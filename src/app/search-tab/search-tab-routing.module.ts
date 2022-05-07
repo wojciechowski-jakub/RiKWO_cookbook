@@ -6,8 +6,8 @@ import { SearchTabPage } from './search-tab.page';
 const routes: Routes = [
   {
     path: '',
-    component: SearchTabPage
-  }
+    component: SearchTabPage,
+  },
 ];
 
 @NgModule({

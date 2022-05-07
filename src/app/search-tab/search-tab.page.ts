@@ -1,6 +1,16 @@
+import {
+  SearchFiltersComponent,
+  FilterValues,
+} from './search-filters/search-filters.component';
+import { OptionsActionSheetsService } from './../services/options-action-sheets.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonSearchbar, Platform } from '@ionic/angular';
+import {
+  ActionSheetController,
+  IonSearchbar,
+  ModalController,
+  Platform,
+} from '@ionic/angular';
 import { Observable, Subject } from 'rxjs';
 import {
   debounceTime,
@@ -26,6 +36,9 @@ export class SearchTabPage implements OnInit {
   searching = false;
   private searchPhrase = new Subject<string>();
   selectedCategory?: Category;
+  lastSearchPhrase?: string;
+  sortOption?: string;
+  filterValues?: FilterValues;
 
   @ViewChild('searchbar') searchbar: IonSearchbar;
 
@@ -35,7 +48,9 @@ export class SearchTabPage implements OnInit {
     private myRecipesService: MyRecipesService,
     private router: Router,
     private loadingService: LoadingService,
-    private platform: Platform
+    private platform: Platform,
+    private optionsService: OptionsActionSheetsService,
+    private modalController: ModalController
   ) {
     this.platform.backButton.subscribeWithPriority(10, () => {
       if (this.searching) {
@@ -54,9 +69,15 @@ export class SearchTabPage implements OnInit {
         this.loadingService.displayLoader();
         this.searching = true;
       }),
-      switchMap((phrase) =>
-        this.recipeService.getRecipes(phrase, this.selectedCategory)
-      ),
+      switchMap((phrase) => {
+        this.lastSearchPhrase = phrase;
+        return this.recipeService.getRecipes(
+          phrase,
+          this.selectedCategory,
+          this.sortOption,
+          this.filterValues
+        );
+      }),
       tap(() => this.loadingService.dismissLoader())
     );
   }
@@ -81,5 +102,41 @@ export class SearchTabPage implements OnInit {
 
   showRecipeDetails(recipe: Recipe) {
     this.router.navigate(['cookbook/recipe-details', recipe.id]);
+  }
+
+  async showSortOptions() {
+    const sortOption = await this.optionsService.showSortOptions();
+
+    this.sortOption = sortOption;
+    if (!sortOption) return;
+
+    this.recipes$ = this.recipeService.getRecipes(
+      this.lastSearchPhrase,
+      this.selectedCategory,
+      this.sortOption,
+      this.filterValues
+    );
+  }
+
+  async showFilterOptions() {
+    const modal = await this.modalController.create({
+      component: SearchFiltersComponent,
+      componentProps: { values: this.filterValues },
+      breakpoints: [0, 0.3, 0.65, 0.9],
+      initialBreakpoint: 0.65,
+    });
+
+    modal.onDidDismiss().then((data) => {
+      this.filterValues = data.data;
+
+      this.recipes$ = this.recipeService.getRecipes(
+        this.lastSearchPhrase,
+        this.selectedCategory,
+        this.sortOption,
+        this.filterValues
+      );
+    });
+
+    return await modal.present();
   }
 }

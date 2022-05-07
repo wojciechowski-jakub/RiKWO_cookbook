@@ -1,3 +1,4 @@
+import { FilterValues } from './../search-tab/search-filters/search-filters.component';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
@@ -16,10 +17,21 @@ export class RecipeService {
 
   constructor(private http: HttpClient) {}
 
-  getRecipes(query?: string, category?: Category): Observable<Recipe[]> {
+  getRecipes(
+    query?: string,
+    category?: Category,
+    sort?: string,
+    filter?: FilterValues
+  ): Observable<Recipe[]> {
     let params = new HttpParams().set('apiKey', this.apiKey).set('number', 50);
     if (query) params = params.set('query', query);
     if (category) params = params.set(category.type, category.title);
+    if (sort) params = params.set('sort', sort);
+    if (filter) {
+      Object.entries(filter).forEach(
+        ([filterKey, value]) => (params = params.set(filterKey, value))
+      );
+    }
 
     return this.http
       .get(`${this.apiURL}/recipes/complexSearch`, { params })

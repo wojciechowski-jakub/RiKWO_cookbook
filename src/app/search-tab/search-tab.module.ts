@@ -1,3 +1,4 @@
+import { SearchFiltersComponent } from './search-filters/search-filters.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -20,7 +21,7 @@ import { RecipeCardModule } from '../recipe-card/recipe-card.module';
     SearchTabPageRoutingModule,
     RecipeCardModule,
   ],
-  declarations: [SearchTabPage, CategoryCardComponent],
+  declarations: [SearchTabPage, CategoryCardComponent, SearchFiltersComponent],
   providers: [],
 })
 export class SearchTabPageModule {}
