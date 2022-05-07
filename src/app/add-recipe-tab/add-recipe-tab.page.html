@@ -6,16 +6,6 @@
 
 <ion-content [fullscreen]="true">
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="form">
-    <h2 class="form__headline">Photo</h2>
-    <div class="form__picture" (click)="loadPicture()">
-      <div *ngIf="!imageUrl" class="form__picture-placeholder">
-        <ion-icon name="camera-outline" size="large"></ion-icon>
-        <p>Add a photo of your dish!</p>
-      </div>
-      <img [src]="imageUrl" alt="Dish photo" *ngIf="imageUrl" />
-    </div>
-    <input type="text" formControlName="photo" hidden />
-
     <div class="form__title">
       <label for="title" class="form__headline">Title</label>
       <input
@@ -26,6 +16,16 @@
         class="form__input"
       />
     </div>
+
+    <h2 class="form__headline">Photo</h2>
+    <div class="form__picture" (click)="loadPicture()">
+      <div *ngIf="!imageUrl" class="form__picture-placeholder">
+        <ion-icon name="camera-outline" size="large"></ion-icon>
+        <p>Add a photo of your dish!</p>
+      </div>
+      <img [src]="imageUrl" alt="Dish photo" *ngIf="imageUrl" />
+    </div>
+    <input type="text" formControlName="photo" hidden />
 
     <div formArrayName="ingredients" class="form__ingredients">
       <h2 class="form__headline">Ingredients</h2>
@@ -61,6 +61,14 @@
               class="form__input"
             />
           </div>
+
+          <ion-icon
+            name="close-circle-outline"
+            size="large"
+            class="form__delete-icon"
+            (click)="deleteIngredient(i)"
+          >
+          </ion-icon>
         </div>
       </div>
       <button
@@ -89,6 +97,13 @@
           class="form__input"
         />
       </div>
+      <ion-icon
+        name="close-circle-outline"
+        size="large"
+        class="form__delete-icon"
+        (click)="deletePreparationStep(i)"
+      >
+      </ion-icon>
       <button
         type="button"
         (click)="addPreparationStep()"

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonSearchbar } from '@ionic/angular';
+import { IonSearchbar, Platform } from '@ionic/angular';
 import { Observable, Subject } from 'rxjs';
 import {
   debounceTime,
@@ -11,6 +11,7 @@ import {
 import { Category } from '../data/category.model';
 import { Recipe } from '../data/recipe.model';
 import { CategoryService } from '../services/category.service';
+import { LoadingService } from '../services/loading.service';
 import { MyRecipesService } from '../services/my-recipes.service';
 import { RecipeService } from '../services/recipe.service';
 
@@ -26,22 +27,37 @@ export class SearchTabPage implements OnInit {
   private searchPhrase = new Subject<string>();
   selectedCategory?: Category;
 
+  @ViewChild('searchbar') searchbar: IonSearchbar;
+
   constructor(
     private categoryService: CategoryService,
     private recipeService: RecipeService,
     private myRecipesService: MyRecipesService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private loadingService: LoadingService,
+    private platform: Platform
+  ) {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      if (this.searching) {
+        this.searching = false;
+        this.searchbar.value = '';
+      }
+    });
+  }
 
   ngOnInit() {
     this.categories$ = this.categoryService.getCategories();
     this.recipes$ = this.searchPhrase.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      tap(() => (this.searching = true)),
+      tap(() => {
+        this.loadingService.displayLoader();
+        this.searching = true;
+      }),
       switchMap((phrase) =>
         this.recipeService.getRecipes(phrase, this.selectedCategory)
-      )
+      ),
+      tap(() => this.loadingService.dismissLoader())
     );
   }
 

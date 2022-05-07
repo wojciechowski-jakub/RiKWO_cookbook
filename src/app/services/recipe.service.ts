@@ -39,8 +39,6 @@ export class RecipeService {
   }
 
   getRecipeDetails(id: number): Observable<Recipe> {
-    let params = new HttpParams().set('apiKey', this.apiKey);
-
     return forkJoin([
       this.getRecipeInfo(id),
       this.getRecipePreparationSteps(id),
@@ -75,7 +73,15 @@ export class RecipeService {
   }
 
   private getRecipePreparationSteps(id: number): Observable<string[]> {
-    return of(['Step 1', 'Step 2', 'Step 3']);
+    let params = new HttpParams().set('apiKey', this.apiKey);
+
+    return this.http
+      .get(`${this.apiURL}/recipes/${id}/analyzedInstructions`, { params })
+      .pipe(
+        map((response: any) => {
+          return response[0].steps.map((step) => step.step);
+        })
+      );
   }
 
   private getRecipeIngredients(id: number): Observable<Ingredient[]> {

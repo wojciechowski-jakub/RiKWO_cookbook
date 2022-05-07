@@ -1,6 +1,7 @@
 .toolbar {
   --background: rgba(255, 255, 255, 0.8);
   position: absolute;
+  color: var(--ion-color-primary);
 }
 
 .recipe {
@@ -9,6 +10,7 @@
 
   &__img {
     width: 100%;
+    max-height: 20rem;
   }
 
   &__data {
