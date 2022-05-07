@@ -23,7 +23,6 @@ export class RecipeDetailsPage implements OnInit {
   ngOnInit() {
     const recipeId = +this.route.snapshot.paramMap.get('id');
     const recipeInMemory = this.myRecipesService.getMyRecipeById(recipeId);
-    console.log(recipeInMemory);
     if (recipeInMemory) this.recipe$ = of(recipeInMemory);
     else this.recipe$ = this.recipeService.getRecipeDetails(recipeId);
   }

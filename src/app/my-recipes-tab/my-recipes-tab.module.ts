@@ -8,6 +8,7 @@ import { MyRecipesTabPageRoutingModule } from './my-recipes-tab-routing.module';
 
 import { MyRecipesTabPage } from './my-recipes-tab.page';
 import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
+import { RecipeCardModule } from '../recipe-card/recipe-card.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
     FormsModule,
     IonicModule,
     MyRecipesTabPageRoutingModule,
+    RecipeCardModule,
   ],
-  declarations: [MyRecipesTabPage, RecipeCardComponent],
+  declarations: [MyRecipesTabPage],
 })
 export class MyRecipesTabPageModule {}

@@ -17,7 +17,6 @@ export class MyRecipesService {
   }
 
   bookmark(recipe: Recipe) {
-    console.log(recipe);
     if (this.isBookmarked(recipe)) {
       this.recipes.splice(
         this.recipes.findIndex((r) => r.id === recipe.id),
