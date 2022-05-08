@@ -2,3 +2,11 @@
   --background: var(--ion-color-primary);
   --color: #fff;
 }
+
+.sort-button {
+  --color: var(--ion-color-primary);
+}
+
+.cancel-button {
+  --color: var(--ion-color-danger);
+}

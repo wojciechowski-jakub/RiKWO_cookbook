@@ -64,7 +64,7 @@ export class SearchTabPage implements OnInit {
     this.categories$ = this.categoryService.getCategories();
     this.recipes$ = this.searchPhrase.pipe(
       debounceTime(300),
-      distinctUntilChanged(),
+      // distinctUntilChanged(),
       tap(() => {
         this.loadingService.displayLoader();
         this.searching = true;
@@ -110,31 +110,34 @@ export class SearchTabPage implements OnInit {
     this.sortOption = sortOption;
     if (!sortOption) return;
 
-    this.recipes$ = this.recipeService.getRecipes(
-      this.lastSearchPhrase,
-      this.selectedCategory,
-      this.sortOption,
-      this.filterValues
-    );
+    // this.recipes$ = this.recipeService.getRecipes(
+    //   this.lastSearchPhrase,
+    //   this.selectedCategory,
+    //   this.sortOption,
+    //   this.filterValues
+    // );
+    this.searchPhrase.next(this.lastSearchPhrase);
   }
 
   async showFilterOptions() {
     const modal = await this.modalController.create({
       component: SearchFiltersComponent,
       componentProps: { values: this.filterValues },
-      breakpoints: [0, 0.3, 0.65, 0.9],
-      initialBreakpoint: 0.65,
+      breakpoints: [0, 0.3, 0.5, 0.78, 0.9],
+      initialBreakpoint: 0.78,
+      backdropDismiss: false,
     });
 
     modal.onDidDismiss().then((data) => {
       this.filterValues = data.data;
 
-      this.recipes$ = this.recipeService.getRecipes(
-        this.lastSearchPhrase,
-        this.selectedCategory,
-        this.sortOption,
-        this.filterValues
-      );
+      // this.recipes$ = this.recipeService.getRecipes(
+      //   this.lastSearchPhrase,
+      //   this.selectedCategory,
+      //   this.sortOption,
+      //   this.filterValues
+      // );
+      this.searchPhrase.next(this.lastSearchPhrase);
     });
 
     return await modal.present();

@@ -15,19 +15,26 @@ export class OptionsActionSheetsService {
         {
           text: 'Popularity',
           data: 'popularity',
+          icon: 'trending-up',
+          cssClass: 'sort-button',
         },
         {
           text: 'Time',
           data: 'time',
+          icon: 'time',
+          cssClass: 'sort-button',
         },
         {
           text: 'Calories',
           data: 'calories',
+          icon: 'fast-food',
+          cssClass: 'sort-button',
         },
         {
           text: 'Cancel',
           icon: 'close',
           role: 'cancel',
+          cssClass: 'cancel-button',
         },
       ],
     });
