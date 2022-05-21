@@ -96,14 +96,14 @@
           [formControlName]="i"
           class="form__input"
         />
+        <ion-icon
+          name="close-circle-outline"
+          size="large"
+          class="form__delete-icon"
+          (click)="deletePreparationStep(i)"
+        >
+        </ion-icon>
       </div>
-      <ion-icon
-        name="close-circle-outline"
-        size="large"
-        class="form__delete-icon"
-        (click)="deletePreparationStep(i)"
-      >
-      </ion-icon>
       <button
         type="button"
         (click)="addPreparationStep()"
