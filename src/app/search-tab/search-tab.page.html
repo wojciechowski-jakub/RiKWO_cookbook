@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar *ngIf="!searching">
+    <ion-title> Search </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <div class="searchbar">
+      <ion-icon
+        name="arrow-back-outline"
+        size="large"
+        class="searchbar__icon-back"
+        [class.searchbar__icon-back--visible]="searching"
+        (click)="cancelSearch(searchbar)"
+      ></ion-icon>
+      <ion-searchbar
+        #searchbar
+        (ionInput)="search(searchbar.value)"
+        placeholder="Search for recipe"
+      ></ion-searchbar>
+
+      <div class="options" *ngIf="searching">
+        <ion-icon
+          name="options-outline"
+          (click)="showFilterOptions()"
+        ></ion-icon>
+        <ion-icon
+          name="swap-vertical-outline"
+          (click)="showSortOptions()"
+        ></ion-icon>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="categories" *ngIf="!searching">
+    <app-category-card
+      *ngFor="let category of categories$ | async"
+      [category]="category"
+      (click)="selectCategory(category)"
+    ></app-category-card>
+  </div>
+
+  <ng-container *ngFor="let recipes of [recipes$ | async]">
+    <div class="recipes" *ngIf="searching">
+      <app-recipe-card
+        *ngFor="let recipe of recipes"
+        [recipe]="recipe"
+        (bookmark)="bookmark(recipe)"
+        (recipeClick)="showRecipeDetails(recipe)"
+      ></app-recipe-card>
+
+      <div
+        *ngIf="recipes && recipes.length === 0"
+        class="recipes__empty-message"
+      >
+        <p>
+          Your search for "{{searchbar.value}}" didn't return any results. Try
+          again!
+        </p>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>
