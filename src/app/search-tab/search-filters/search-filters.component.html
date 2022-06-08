@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Filters</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2 class="filer-name">Calories range</h2>
+  <ion-item>
+    <ion-range
+      min="0"
+      max="2000"
+      step="50"
+      snaps="true"
+      ticks="false"
+      dualKnobs="true"
+      [value]="
+        values
+          ? { lower: values.minCalories, upper: values.maxCalories }
+          : { lower: 0, upper: 2000 }
+      "
+      pin="true"
+      #calories
+    >
+      <ion-label slot="start">0 kcal</ion-label>
+      <ion-label slot="end">2000 kcal</ion-label>
+    </ion-range>
+  </ion-item>
+
+  <h2 class="filer-name">Intolerances</h2>
+  <ion-list>
+    <ion-item *ngFor="let intolerance of intolerances">
+      <ion-checkbox
+        slot="start"
+        [(ngModel)]="intolerance.isChecked"
+      ></ion-checkbox>
+      <ion-label>{{ intolerance.name }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <button type="button" class="confirm-btn" (click)="confirm(calories.value)">
+    Confirm
+  </button>
+</ion-content>

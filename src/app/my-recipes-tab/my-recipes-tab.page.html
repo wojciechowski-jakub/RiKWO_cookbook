@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> My recipes tab </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="recipes">
+    <app-recipe-card
+      *ngFor="let recipe of recipes"
+      [recipe]="recipe"
+      (bookmark)="bookmark(recipe)"
+      (recipeClick)="showRecipeDetails(recipe)"
+    ></app-recipe-card>
+
+    <div *ngIf="recipes && recipes.length === 0" class="recipes__empty-message">
+      <p>
+        No recipes yet. Start with adding your own recipe or bookmark existing
+        one on the search page.
+      </p>
+    </div>
+  </div>
+</ion-content>

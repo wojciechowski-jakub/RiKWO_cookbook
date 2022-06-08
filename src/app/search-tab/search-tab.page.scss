@@ -1,0 +1,54 @@
+.searchbar {
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+
+  ion-searchbar {
+    padding: 0;
+  }
+
+  &__icon-back {
+    display: none;
+    padding: 0;
+    transform: translateX(-25%);
+    color: var(--ion-color-primary);
+
+    &--visible {
+      display: inline-block;
+    }
+  }
+
+  .options {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: 0.5rem;
+    color: var(--ion-color-medium-shade);
+    font-size: 1.5rem;
+
+    ion-icon:hover,
+    ion-icon:active {
+      color: #000;
+    }
+  }
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  padding: 1.2rem;
+}
+
+.recipes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  padding: 1.2rem;
+
+  &__empty-message {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,0 +1,124 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Create recipe </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="form">
+    <div class="form__title">
+      <label for="title" class="form__headline">Title</label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        placeholder="Recipe title"
+        class="form__input"
+      />
+    </div>
+
+    <h2 class="form__headline">Photo</h2>
+    <div class="form__picture" (click)="loadPicture()">
+      <div *ngIf="!imageUrl" class="form__picture-placeholder">
+        <ion-icon name="camera-outline" size="large"></ion-icon>
+        <p>Add a photo of your dish!</p>
+      </div>
+      <img [src]="imageUrl" alt="Dish photo" *ngIf="imageUrl" />
+    </div>
+    <input type="text" formControlName="photo" hidden />
+
+    <div formArrayName="ingredients" class="form__ingredients">
+      <h2 class="form__headline">Ingredients</h2>
+
+      <div *ngFor="let ingredient of ingredients.controls; let i = index">
+        <div [formGroup]="$any(ingredient)" class="form__ingredient">
+          <div class="form__ingredient-name">
+            <input
+              type="text"
+              id="ingredient-{{i}}"
+              placeholder="Ingredient"
+              formControlName="name"
+              class="form__input"
+            />
+          </div>
+
+          <div class="form__ingredient-amount">
+            <input
+              type="text"
+              id="amount-{{i}}"
+              placeholder="Amount"
+              formControlName="amount"
+              class="form__input"
+            />
+          </div>
+
+          <div class="form__ingredient-unit">
+            <input
+              type="text"
+              id="unit-{{i}}"
+              placeholder="Unit"
+              formControlName="unit"
+              class="form__input"
+            />
+          </div>
+
+          <ion-icon
+            name="close-circle-outline"
+            size="large"
+            class="form__delete-icon"
+            (click)="deleteIngredient(i)"
+          >
+          </ion-icon>
+        </div>
+      </div>
+      <button
+        type="button"
+        (click)="addIngredient()"
+        class="form__ingredient-add-btn form__btn"
+      >
+        + Add ingredient
+      </button>
+    </div>
+
+    <div formArrayName="preparationSteps" class="form__preparation-steps">
+      <h2 class="form__headline">Preparation</h2>
+      <div
+        class="form__preparation-step"
+        *ngFor="let step of preparationSteps.controls; let i = index"
+      >
+        <div class="form__preparation-step-num">
+          <span>{{i+1}}</span>
+        </div>
+        <input
+          type="text"
+          id="step-{{i}}"
+          placeholder="Step description"
+          [formControlName]="i"
+          class="form__input"
+        />
+        <ion-icon
+          name="close-circle-outline"
+          size="large"
+          class="form__delete-icon"
+          (click)="deletePreparationStep(i)"
+        >
+        </ion-icon>
+      </div>
+      <button
+        type="button"
+        (click)="addPreparationStep()"
+        class="form__preparation-step-add-btn form__btn"
+      >
+        + Add preparation step
+      </button>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="!recipeForm.valid"
+      class="form__submit-btn form__btn"
+    >
+      Create
+    </button>
+  </form>
+</ion-content>
